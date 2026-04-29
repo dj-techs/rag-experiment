@@ -49,10 +49,13 @@ with st.sidebar:
         "Source: SEC EDGAR (live download)"
     )
     st.divider()
-    arch_path = Path("architecture_diagram.png")
+    # Resolve from the file location so cwd doesn't matter.
+    arch_path = Path(__file__).resolve().parent.parent / "architecture_diagram.png"
     if arch_path.exists():
-        with st.expander("Architecture diagram"):
-            st.image(str(arch_path))
+        st.image(str(arch_path), caption="Architecture (full v2 reference)",
+                 use_container_width=True)
+    else:
+        st.warning(f"architecture_diagram.png not found at {arch_path}")
     st.divider()
     try:
         h = requests.get(f"{API_URL}/health", timeout=2)

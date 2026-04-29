@@ -22,7 +22,8 @@
       "Bash(python -c ' *)",
       "Bash(PYTHONIOENCODING=utf-8 python -m uv run pytest tests/test_smoke.py -v)",
       "Bash(curl -sS -m 90 -X POST http://127.0.0.1:8000/query -H \"Content-Type: application/json\" -d '{\"query\":\"What were Apple main revenue drivers in fiscal 2025?\"}')",
-      "Bash(curl -sS -m 90 -o e2e_response.json -X POST http://127.0.0.1:8000/query -H \"Content-Type: application/json\" -d '{\"query\":\"What were Apple main revenue drivers in fiscal 2025?\"}')"
+      "Bash(curl -sS -m 90 -o e2e_response.json -X POST http://127.0.0.1:8000/query -H \"Content-Type: application/json\" -d '{\"query\":\"What were Apple main revenue drivers in fiscal 2025?\"}')",
+      "mcp__Claude_in_Chrome__list_connected_browsers"
     ]
   }
 }
