@@ -86,17 +86,22 @@ samples = [
     ("Ambiguous (clarification)",
      "Tell me about their products"),
 ]
+# Bind the text input directly to session_state["query_text"] — Streamlit
+# ignores `value=` on widgets that have a key, so we must mutate state
+# before the widget renders and let it pick the value up via the key.
+st.session_state.setdefault("query_text", "")
+st.session_state.setdefault("auto_ask", False)
+
 cols = st.columns(len(samples))
 for col, (label, q) in zip(cols, samples):
-    if col.button(label, use_container_width=True):
+    if col.button(label, use_container_width=True, key=f"sample_{label}"):
         st.session_state["query_text"] = q
+        st.session_state["auto_ask"] = True
+        st.rerun()  # re-enter so the text_input picks up the new value
 
-query = st.text_input(
-    "Ask a question:",
-    value=st.session_state.get("query_text", ""),
-    key="query_input",
-)
-ask = st.button("Ask", type="primary", disabled=not query.strip())
+query = st.text_input("Ask a question:", key="query_text")
+ask_clicked = st.button("Ask", type="primary", disabled=not query.strip())
+ask = ask_clicked or st.session_state.pop("auto_ask", False)
 
 if ask and query.strip():
     with st.spinner("Running orchestrator (router -> planner -> executor -> verifier)..."):
