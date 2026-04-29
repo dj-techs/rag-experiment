@@ -1,0 +1,22 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+
+# Project artifacts (built locally, not committed)
+data/pdfs/
+data/chroma/
+data/bm25.pkl
+data/feedback.jsonl
+.eval-results/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

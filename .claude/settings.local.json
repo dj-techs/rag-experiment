@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv --version)",
+      "PowerShell(Get-Command uv -ErrorAction SilentlyContinue)",
+      "PowerShell(uv --version)",
+      "Read(//c/cwork/rag-experiment/data/eval//**)",
+      "Read(//c/cwork/rag-experiment/**)",
+      "PowerShell($scripts = python -c \"import sysconfig; print\\(sysconfig.get_path\\('scripts', scheme='nt_user'\\)\\)\"; \"$scripts\"; Test-Path \"$scripts\\\\uv.exe\"; if \\($env:Path -split ';' -contains $scripts\\) { 'uv scripts dir on PATH' } else { 'NOT on PATH' })",
+      "Skill(claude-api)",
+      "Skill(claude-api:*)",
+      "PowerShell($data = [System.IO.File]::ReadAllText\\('C:\\\\cwork\\\\rag-experiment\\\\.env'\\); $idx = $data.IndexOf\\('USER_AGENT='\\); $keyPart = $data.Substring\\(0, $idx\\).TrimEnd\\(\\); $clean = $keyPart + \"`n\" + 'OPENAI_API_KEY=' + \"`n\" + 'USER_AGENT=DJames alamointelligence@gmail.com' + \"`n\"; [System.IO.File]::WriteAllText\\('C:\\\\cwork\\\\rag-experiment\\\\.env', $clean\\); 'rewrote .env, len=' + $clean.Length)",
+      "Bash(python -m uv run python -m src.ingest)",
+      "Bash(tee /tmp/ingest.log)",
+      "Bash(PYTHONIOENCODING=utf-8 python -m uv run python -m src.ingest)",
+      "PowerShell($env:PYTHONIOENCODING='utf-8'; python -m uv run python -c \"from src.rag import hybrid_search; r=hybrid_search\\('Apple revenue drivers fiscal 2025', top_k=5\\); [print\\(f'{x.score:.4f} {x.metadata[\\\\\"company\\\\\"]:5s} {x.chunk_id} {x.text[:120]}'\\) for x in r]\")",
+      "Bash(curl -sS http://127.0.0.1:8000/health)",
+      "Bash(curl -sS -X POST http://127.0.0.1:8000/query -H \"Content-Type: application/json\" -d '{\"query\":\"What was the weather in Tokyo last Tuesday?\"}')",
+      "Bash(python -c \"import sys, json; d=json.load\\(sys.stdin\\); print\\('intent:', d['intent']\\); print\\('confidence:', d['confidence']\\); print\\('answer:', d['answer'][:200]\\)\")",
+      "Bash(PYTHONIOENCODING=utf-8 python -m uv run python -m src.eval)",
+      "Bash(tee /tmp/eval.log)",
+      "Bash(python -c ' *)",
+      "Bash(PYTHONIOENCODING=utf-8 python -m uv run pytest tests/test_smoke.py -v)",
+      "Bash(curl -sS -m 90 -X POST http://127.0.0.1:8000/query -H \"Content-Type: application/json\" -d '{\"query\":\"What were Apple main revenue drivers in fiscal 2025?\"}')",
+      "Bash(curl -sS -m 90 -o e2e_response.json -X POST http://127.0.0.1:8000/query -H \"Content-Type: application/json\" -d '{\"query\":\"What were Apple main revenue drivers in fiscal 2025?\"}')"
+    ]
+  }
+}
